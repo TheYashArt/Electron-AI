@@ -10,20 +10,24 @@ export default function ChatSideBar() {
     return (
         <div>
             {
-                sidebarOpen && (
-                    <div>
-                        {ismodel && <Sidebar size={20} onClick={() => setSidebarOpen(prev => !prev)} />}
-                    </div>
+                !sidebarOpen && (
+                    <motion.div 
+                    initial={{ opacity: 0 }} 
+                    animate={{ opacity: 1 }} 
+                    exit={{ opacity: 0 }} 
+                    transition={{ duration: 0.6 }}  
+                    className="absolute top-4 left-4">
+                        <Sidebar size={30} onClick={() => setSidebarOpen(prev => !prev)} />
+                    </motion.div>
                 )
             }
 
-            <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-black h-screen bg-gray-100 flex flex-col overflow-hidden"
-            style={{ width: sidebarOpen ? "100%" : "0" }}>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ width: sidebarOpen ? "100%" : "0", opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-black h-screen bg-gray-100 flex flex-col overflow-hidden">
 
                 {/* ── Header ── */}
                 <div className="flex justify-between items-center py-2.5 px-3">

@@ -10,7 +10,7 @@ export default function Chat() {
         <div className="flex h-screen w-screen overflow-hidden relative">
 
             {/* Desktop Sidebar (Always Visible) */}
-            <div className="hidden md:block md:w-[20%]">
+            <div className=" md:w-[20%]">
                 <ChatSideBar />
             </div>
 
