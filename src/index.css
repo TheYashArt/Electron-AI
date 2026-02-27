@@ -1,23 +1,54 @@
 @import "tailwindcss";
 
 .border-gradient {
-    background: linear-gradient(#ffffff, #ffffff) padding-box,
-        linear-gradient(to right, #ff55f4, #54bcfd) border-box;
-    border: 1.5px solid transparent;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(to right, #ff55f4, #54bcfd) border-box;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
 }
 
 body {
   font-family: "Google Sans Flex", system-ui, sans-serif;
 }
+
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE & Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;
+  /* IE & Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .no-scrollbar::-webkit-scrollbar {
   width: 0px;
   height: 0px;
+}
+
+.glow-btn {
+  position: relative;
+  overflow: visible;
+  transition: transform 0.3s ease;
+}
+
+.glow-btn::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(90deg, rgba(255, 85, 244, 0.4),
+      rgba(84, 188, 253, 0.4));
+  border-radius: 24px;
+  /* match rounded-3xl */
+  filter: blur(30px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.glow-btn:hover::before {
+  opacity: 0.7;
+}
+
+.glow-btn:hover {
+  transform: translateY(-4px);
 }

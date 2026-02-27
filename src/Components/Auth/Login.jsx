@@ -101,7 +101,9 @@ export default function Login() {
                         </motion.div>
 
                         <div>
-                            <button className="bg-gradient-to-r from-[#ff55f4]/37 to-[#54bcfd]/56 text-white px-4 py-2 rounded-full w-full mt-6">
+                            <button 
+                            onClick={()=>{nav("/dashboard")}}
+                            className="bg-gradient-to-r from-[#ff55f4]/37 to-[#54bcfd]/56 text-white px-4 py-2 rounded-full w-full mt-6">
                                 <span className="text-black font-bold text-xl">
                                    {islogin ? "Sign Up" : "Login"}
                                 </span>

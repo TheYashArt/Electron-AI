@@ -24,11 +24,11 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="w-full px-7">
-                    <div className="tetx-2xl font-semibold">
+                    <div className="tetx-2xl mb-2 font-semibold">
                         Products
                     </div>
                     <div>
-                        <ul className="list-disc list-inside text-gray-600">
+                        <ul className="list-inside text-gray-600">
                             <li>Vision RAG</li>
                             <li>Text RAG</li>
                             <li>Persona Agent</li>
@@ -51,7 +51,7 @@ export default function Footer() {
                     &copy; Electron AI {new Date().getFullYear()}
                 </div>
                 <div className=" text-gray-500">
-                    All rights reserved. Pune
+                    All rights reserved
                 </div>
 
             </div>
