@@ -19,7 +19,7 @@ export default function Working() {
             transition={{ duration: 1 }}
             className="relative bg-white"
             id="how-it-works">
-            <div className="text-4xl font-bold text-center pt-20">How it works</div>
+            <div className="text-4xl text-center pt-20">How it works</div>
 
             <div className="flex md:flex-row flex-col w-full justify-center p-5 gap-6 mt-10">
                 {cards.map((card, index) => {
@@ -31,7 +31,7 @@ export default function Working() {
                             key={index}
                             onHoverStart={() => setActive(index)}
                             onHoverEnd={() => setActive(null)}
-                            onClick={card.name === "Chat" ? () => {nav("/chat")} : undefined}
+                            onClick={card.name === "Chat" ? () => {nav("/chat")} : card.name === "Upload Documents" ? () => {nav("/upload")} : null}
                             animate={{
                                 scale: isActive ? 1.08 : 1,
                                 filter: isInactive ? "blur(1px)" : "blur(0px)",
