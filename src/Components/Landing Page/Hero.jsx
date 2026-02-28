@@ -3,6 +3,7 @@ import { use, useState } from "react";
 import Animation from "./animation";
 import Typewriter from "./Typewriter";
 import { useNavigate } from "react-router-dom";
+import image from "../../assets/logo.png"
 
 export default function Hero() {
     const [typingDone, setTypingDone] = useState(false);
@@ -33,7 +34,12 @@ export default function Hero() {
                                 transition={{ duration: 0.6, ease: "easeOut" }}
                                 className="text-xl"
                             >
-                                <span className="">Electron</span> <span className="font-bold">AI</span>
+                                <div className="flex items-center justify-center gap-2">
+                                    <img src={image} width={50} />
+                                    <div className="flex gap-1">
+                                    <span className="">Electron </span> <span className="font-bold">AI</span>
+                                    </div>
+                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -53,9 +59,9 @@ export default function Hero() {
                                 transition={{ duration: 0.6, ease: "easeOut" }}
                                 className="text-xl"
                             >
-                                <button 
-                                onClick={()=>{nav("/login")}}
-                                className="bg-gray-800 text-white px-10 py-2 rounded-full w-full mt-6 cursor-pointer">
+                                <button
+                                    onClick={() => { nav("/login") }}
+                                    className="bg-gray-600 text-white px-10 py-2 rounded-full w-full mt-6 cursor-pointer">
                                     <span className="text-white font-bold text-xl">
                                         Get Started
                                     </span>

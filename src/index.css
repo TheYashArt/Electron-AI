@@ -45,10 +45,21 @@ body {
   z-index: -1;
 }
 
-.glow-btn:hover::before {
+.glow-btn:hover::before,
+.glow-btn.dragging::before {
   opacity: 0.7;
 }
 
-.glow-btn:hover {
+.glow-btn:hover,
+.glow-btn.dragging {
   transform: translateY(-4px);
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"] {
+  appearance: none;
 }

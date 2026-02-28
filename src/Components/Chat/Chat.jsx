@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChatSection from "./ChatSection";
 import ChatSideBar from "./ChatSideBar";
-
+import Loader from "./Loader";
+import {motion} from "framer-motion"
+import image from "../../assets/Icons/resistor.png"
 export default function Chat() {
     const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
+    const [isLoading, setIsLoading] = useState(true)
 
     const [chats, setChats] = useState([
         {
@@ -12,6 +15,14 @@ export default function Chat() {
             messages: []
         }
     ]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     const [currentChatId, setCurrentChatId] = useState(chats[0].id);
 
@@ -66,7 +77,7 @@ export default function Chat() {
                 chat.id === currentChatId
                     ? {
                         ...chat,
-                        messages: [...chat.messages, { role: "User", message }]
+                        messages: [...chat.messages, { role: "bot", message }]
                     }
                     : chat
             )
@@ -76,24 +87,42 @@ export default function Chat() {
     const currentChat = chats.find(chat => chat.id === currentChatId);
 
     return (
-        <div className="flex h-screen w-screen overflow-hidden relative bg-white">
-            <ChatSideBar
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-                onNewChat={handleNewChat}
-                chats={chats}
-                onSelectChat={handleSelectChat}
-                currentChatId={currentChatId}
-                onRenameChat={handleRenameChat}
-                onDeleteChat={handleDeleteChat}
-            />
+        <>
+            {isLoading ?
+                <div className="h-screen w-screen flex justify-center items-center">
+                    <motion.img
+                        src={image}
+                        alt="loading"
+                        animate={{ y: [0, -20, 0] }}
+                        transition={{
+                            duration: 0.6,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
+                        style={{
+                            width: "40px",
+                        }}
+                    />
+                </div> : <div className="flex h-screen w-screen overflow-hidden relative bg-white">
+                    <ChatSideBar
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        onNewChat={handleNewChat}
+                        chats={chats}
+                        onSelectChat={handleSelectChat}
+                        currentChatId={currentChatId}
+                        onRenameChat={handleRenameChat}
+                        onDeleteChat={handleDeleteChat}
+                    />
 
-            <div className={`flex-1 min-w-0 ${isOpen ? "ml-0" : "ml-10"} `}>
-                <ChatSection
-                    messages={currentChat?.messages || []}
-                    onSendMessage={handleSendMessage}
-                />
-            </div>
-        </div>
+                    <div className={`flex-1 min-w-0 ${isOpen ? "ml-0" : "ml-10"} `}>
+                        <ChatSection
+                            messages={currentChat?.messages || []}
+                            onSendMessage={handleSendMessage}
+                        />
+                    </div>
+                </div>}
+        </>
+
     );
 }

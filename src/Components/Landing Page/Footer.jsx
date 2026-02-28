@@ -1,7 +1,9 @@
 import { Linkedin, Mail } from "lucide-react"
+import { motion } from "framer-motion"
+import image from "../../assets/GMS.png"
 export default function Footer() {
     return (
-        <div className="relative h-screen overflow-hidden flex flex-col justify-end gap-30 pb-6">
+        <div id="footer" className="relative h-screen overflow-hidden flex flex-col justify-end gap-30 pb-6">
 
             {/* Background Blob */}
             <div className="absolute bottom-0 left-1/2  z-0 pointer-events-none">
@@ -16,11 +18,14 @@ export default function Footer() {
             {/* Footer Content */}
             <div className="relative z-10 flex md:flex-row flex-col md:justify-center w-full gap-20 px-10 md:px-20 ">
                 <div className=" w-full px-7">
-                    <div className="font-bold text-3xl">
-                        Electron AI
+                    <div className="text-3xl">
+                        Electron <span className="font-semibold">AI</span>
                     </div>
-                    <div className="text-gray-600 mt-3">
-                        GMS
+                    <div className="mt-3">
+                        Powered by
+                    </div>
+                    <div className="text-gray-600">
+                        <img src={image} width={60} />
                     </div>
                 </div>
                 <div className="w-full px-7">
@@ -29,9 +34,20 @@ export default function Footer() {
                     </div>
                     <div>
                         <ul className="list-inside text-gray-600">
-                            <li>Vision RAG</li>
-                            <li>Text RAG</li>
-                            <li>Persona Agent</li>
+                            <li><motion.a
+                                initial={{ color: "black" }}
+                                whileHover={{ color: "blue" }}
+                                href="#footer">Vision RAG</motion.a></li>
+                            <li><motion.a
+                                initial={{ color: "black" }}
+                                whileHover={{ color: "blue" }}
+                                transition={{ duration: 0.3 }}
+                                href="#footer">Text RAG</motion.a></li>
+                            <li><motion.a
+                                initial={{ color: "black" }}
+                                whileHover={{ color: "blue" }}
+                                transition={{ duration: 0.3 }}
+                                href="#footer">Persona Agent</motion.a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,8 +56,8 @@ export default function Footer() {
                         Contact
                     </div>
                     <div className="flex gap-3 mt-3.5">
-                        <Mail size={20} className="inline-block mr-2" />
-                        <Linkedin size={20} className="inline-block mr-2" />
+                        <Mail size={20} className="inline-block mr-2 hover:text-green-500 cursor-pointer" />
+                        <Linkedin size={20} className="inline-block mr-2 hover:text-blue-500 cursor-pointer" />
                     </div>
                 </div>
             </div>

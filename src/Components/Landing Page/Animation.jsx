@@ -55,7 +55,7 @@ export default function Animation() {
             <OrbLayer
                 mouseX={mouseX} mouseY={mouseY}
                 stiffness={40} damping={30}
-                size={180} color="#ff55f4" blur={60} opacity={0.2}
+                size={180} color="#ff55f4" blur={60} opacity={0.4}
             />
 
             <OrbLayer

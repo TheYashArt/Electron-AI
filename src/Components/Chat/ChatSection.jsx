@@ -1,10 +1,30 @@
 import { useState, useRef, useEffect } from "react";
 import { Bot, Copy, User, Send } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import Typewriter from "../Landing Page/Typewriter";
 
 export default function ChatSection({ messages, onSendMessage }) {
 
     const [msg, setMsg] = useState("");
+    const chatHeadings = [
+        "What circuit are you working on?",
+        "Ask anything about electronics...",
+        "Need help with a component or concept?",
+        "What would you like to design today?",
+        "Search your electronics knowledge base...",
+        "Troubleshooting something?",
+        "Ask about circuits, signals, or systems...",
+        "Stuck on a circuit?",
+        "Debug your idea here...",
+        "What’s powering your project today?",
+        "Need clarity on voltage, current, or logic?",
+        "Drop your schematic question...",
+        "Query your electronics database...",
+        "Retrieve component insights...",
+        "Analyze a circuit or concept...",
+        "Enter your technical query...",
+        "What are you building today?"
+    ];
 
     const sendMessage = () => {
         const trimmed = msg.trim();
@@ -44,10 +64,10 @@ export default function ChatSection({ messages, onSendMessage }) {
 
     return (
         <div className="relative chat-section h-screen text-black p-5 flex flex-col gap-5">
-            <div data-lenis-prevent className="no-scrollbar flex-1 overflow-y-auto pb-20 pt-2">
+            <div data-lenis-prevent className="no-scrollbar flex-1 overflow-y-auto pb-20 pt-2 px-50">
                 {messages.length === 0 ? (
-                    <div className="flex text-center items-center text-4xl font-semibold justify-center h-full text-gray-500">
-                        Start a new conversation
+                    <div className="flex text-center items-center text-xl font-semibold justify-center h-full text-gray-500">
+                        <Typewriter page={"chat"} texts={chatHeadings} pauseTime={5000} typingSpeed={40} deletingSpeed={20} />
                     </div>
                 ) : (
                     messages.map((chat, index) => (
@@ -74,7 +94,7 @@ export default function ChatSection({ messages, onSendMessage }) {
                                                             transition={{ duration: 0.3 }}
                                                             className="absolute text-xs font-semibold text-green-500 left-0 top-0"
                                                         >
-                                                            Copied
+                                                        ✅
                                                         </motion.span>
                                                     )}
                                                 </AnimatePresence>

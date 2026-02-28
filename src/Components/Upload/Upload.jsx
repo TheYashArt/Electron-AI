@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { UploadCloud, X } from "lucide-react";
 import DataCard from "./DataCard";
-import { nav } from "framer-motion/client";
+import image from "../../assets/logo.png"
 import { useNavigate } from "react-router-dom";
 
 const formatBytes = (bytes) => {
@@ -18,13 +18,35 @@ const buildId = () =>
         ? crypto.randomUUID()
         : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
+const dropzoneVariants = {
+    rest: {
+        borderColor: "#d1d5db",
+        boxShadow: "0 0 0 0 rgba(255,85,244,0)",
+        backgroundPosition: "0% 50%"
+    },
+    drag: {
+        borderColor: ["#ff55f4", "#7c3aed", "#06b6d4", "#ff55f4"],
+        boxShadow: [
+            "0 0 0 0 rgba(255,85,244,0.35)",
+            "0 0 0 10px rgba(255,85,244,0)"
+        ],
+        backgroundPosition: ["0% 50%", "100% 50%"]
+    }
+};
+
+const dropzoneTransition = {
+    borderColor: { duration: 3, repeat: Infinity, ease: "linear" },
+    boxShadow: { duration: 1.4, repeat: Infinity, repeatType: "mirror" },
+    backgroundPosition: { duration: 6, repeat: Infinity, ease: "linear" }
+};
+
 export default function Upload() {
     const [files, setFiles] = useState([]);
     const [previewFile, setPreviewFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const inputRef = useRef(null);
     const urlsRef = useRef([]);
-    const nav = useNavigate()
+    const nav = useNavigate();
 
     const addFiles = (fileList) => {
         const incoming = Array.from(fileList || []);
@@ -101,16 +123,20 @@ export default function Upload() {
             transition={{ duration: 0.6 }}
             className="h-screen flex flex-col gap-5 justify-start pt-6 px-5"
         >
+            <div className="flex items-center gap-2 text-center"
+                onClick={() => { nav("/") }}>
+                <img src={image} alt="logo" width={50} />
+                <span className="text-2xl text-center">Electron</span>  <span className="text-2xl font-semibold text-center">AI</span>
+            </div>
             <div className="flex justify-between items-end">
                 <div>
-                    <div className="font-bold text-xl">File Upload</div>
-                    <div>Upload Multiple Files, preview then generate embeddings</div>
+                    <div className=" text-2xl">File Upload</div>
                 </div>
                 <div>
                     <div className="flex gap-3 items-center">
-                        <button 
-                        onClick={()=>{nav("/chat")}}
-                        className="font-semibold cursor-pointer bg-gray-700 text-white border-gray-300 text-gray-600 px-5 py-1 rounded-xl flex justify-center items-center gap-2 transition-colors duration-200">
+                        <button
+                            onClick={() => { nav("/chat") }}
+                            className="font-semibold cursor-pointer bg-gray-600 text-white border-gray-300 text-gray-600 px-5 py-1 rounded-full flex justify-center items-center gap-2 transition-colors duration-200">
                             Chat
                         </button>
                         <button
@@ -124,40 +150,49 @@ export default function Upload() {
                 </div>
             </div>
 
-            <div
-                className={`flex flex-col gap-3 h-fit py-8 border border-dashed rounded-4xl items-center justify-center transition-colors duration-150 ${isDragging ? "border-[#ff55f4] bg-[#ff55f4]/10" : "border-gray-300"
-                    }`}
+            <motion.div
+                style={{
+                    // backgroundImage:
+                    //     "linear-gradient(120deg, rgba(255,85,244,0.12), rgba(124,58,237,0.12), rgba(34,211,238,0.12))",
+                    backgroundSize: "200% 200%"
+                }}
+                className={`glow-btn ${isDragging ? "dragging" : ""}`}
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
             >
-                <div className="flex flex-col justify-center items-center bg-[#ff55f4]/20 p-3 rounded-2xl ">
-                    <UploadCloud size={30} className="text-[#ff55f4]" />
+                <div
+                    onClick={() => inputRef.current?.click()}
+                    className={`flex bg-white py-5 flex-col gap-3 h-fit border-[1px] border-dashed rounded-4xl items-center justify-center transition-colors duration-150 border-gray-400`}>
+                    <div className="flex flex-col justify-center items-center bg-[#ff55f4]/20 p-3 rounded-2xl ">
+                        <UploadCloud size={30} className="text-[#ff55f4]" />
+                    </div>
+
+                    <div className="text-center">
+                        Drag and Drop your files here
+                        <br />
+                        or
+                    </div>
+
+                    <div>
+                        <button
+                            // onClick={() => inputRef.current?.click()}
+                            className="cursor-pointer border border-gray-400 text-gray-600 px-3 py-1 rounded-xl flex justify-center items-center gap-2 hover:border-gray-600 hover:text-black transition-colors duration-200"
+                        >
+                            Select Files
+                        </button>
+                        <input
+                            ref={inputRef}
+                            type="file"
+                            accept=".pdf"
+                            multiple
+                            className="hidden"
+                            onChange={handleFileChange}
+                        />
+                    </div>
                 </div>
 
-                <div className="text-center">
-                    Drag and Drop your files here
-                    <br />
-                    or
-                </div>
-
-                <div>
-                    <button
-                        onClick={() => inputRef.current?.click()}
-                        className="cursor-pointer border border-gray-400 text-gray-600 px-3 py-1 rounded-xl flex justify-center items-center gap-2 hover:border-gray-600 hover:text-black transition-colors duration-200"
-                    >
-                        Select Files
-                    </button>
-                    <input
-                        ref={inputRef}
-                        type="file"
-                        accept=".pdf"
-                        multiple
-                        className="hidden"
-                        onChange={handleFileChange}
-                    />
-                </div>
-            </div>
+            </motion.div>
 
             <div data-lenis-prevent className="overflow-y-auto no-scrollbar grid grid-cols-1 md:grid-cols-3 gap-4 pb-6">
                 {files.map((file) => (
