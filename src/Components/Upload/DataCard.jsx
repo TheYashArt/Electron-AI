@@ -17,20 +17,22 @@ export default function DataCard({ file, onView, onRemove }) {
             </div>
             <div className="flex justify-between">
                 <button
-                    className="border border-gray-400 w-25 text-gray-600 px-3 py-1 rounded-full flex justify-center items-center gap-2 hover:border-gray-600 hover:text-black transition-colors duration-200"
+                    className="border  border-gray-400 w-25 text-gray-600 px-3 py-1 rounded-full flex justify-center items-center hover:border-gray-600 hover:text-black transition-colors duration-200"
                     onClick={() => onView(file)}
                     type="button"
                 >
-                    <Eye size={18} className="inline-block mr-1" />
-                    <span>View</span>
+                    <span className="w-full">
+                        View
+                    </span>
                 </button>
                 <button
-                    className="border border-red-500 text-red-500 px-3 py-1 rounded-full flex justify-between items-center gap-2 hover:border-red-600 hover:text-red-600 transition-colors duration-200"
+                    className="border border-red-500 w-25 text-center text-red-500 px-3 py-1 rounded-full flex justify-between items-center hover:border-red-600 hover:text-red-600 transition-colors duration-200"
                     onClick={() => onRemove(file.id)}
                     type="button"
                 >
-                    <Trash size={18} className="inline-block mr-1" />
-                    <span>Remove</span>
+                    <span className="w-full">
+                        Remove
+                    </span>
                 </button>
             </div>
         </div>
