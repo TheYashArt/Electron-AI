@@ -39,7 +39,7 @@ export default function ProfileModel({
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.8, opacity: 0, y: 40 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                        className="bg-white p-6 rounded-xl shadow-2xl h-[70%] w-[90%] md:w-[50%] flex flex-col justify-between"
+                        className="bg-white p-6 rounded-xl shadow-2xl h-[70%] w-[90%] md:w-[50%] flex flex-col gap-6 justify-between"
                     >
                         <div className="flex h-full gap-6 py-2">
 
@@ -128,15 +128,15 @@ export default function ProfileModel({
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         transition={{ duration: 0.3 }}
-                                        className="flex-1 p-4 rounded-lg"
+                                        className="flex-1 p-4 rounded-lg h-full"
                                     >
                                         {/* content */}
 
-                                        <div>
+                                        <div className="h-full">
                                             <div className="py-2">
                                                 Change Model
                                             </div>
-                                            <div className="grid grid-cols-2 gap-3 ">
+                                            <div className="grid grid-cols-2 gap-3 h-full ">
                                                 {models.map((model, index) => {
                                                     return (
                                                         <div
@@ -144,7 +144,7 @@ export default function ProfileModel({
                                                                 setSelectedModel(model)
                                                                 setHasChanged(true)
                                                             }}
-                                                            key={index} className={`px-3 py-2 rounded-lg w-full cursor-pointer ${selectedModel === model ? "bg-gray-200 border-gradient" : "bg-gray-100"}`}>
+                                                            key={index} className={`px-3 py-2 rounded-lg w-full text-center flex justify-center items-center cursor-pointer ${selectedModel === model ? "bg-gray-200 border-gradient" : "bg-gray-100"}`}>
                                                             {model}
                                                         </div>
                                                     )
@@ -158,9 +158,9 @@ export default function ProfileModel({
                             </AnimatePresence>
 
                         </div>
+                        <div className="flex justify-end h-12">
+                            {hasChanged && (
 
-                        {hasChanged && (
-                            <div className="flex justify-end">
                                 <button
                                     onClick={() => {
                                         setIsmodel(false)
@@ -170,8 +170,8 @@ export default function ProfileModel({
                                 >
                                     Save
                                 </button>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </motion.div>
                 </motion.div>
             )}
